@@ -63,13 +63,20 @@ export class SolarSystemComponent implements OnInit {
   }
 
   handleToggleItemDescription(item: Item): void {
-    this.handleHideAll()
-    if (!item.descriptionVisible) {
-      const itemIndex = this.data.findIndex(planet => planet.title === item.title);
-      if (itemIndex >= 0) {
-        this.data[itemIndex].descriptionVisible = !this.data[itemIndex].descriptionVisible;
-      }
-    }
 
+    if (item.descriptionVisible) {
+      const visiblePlanets = this.data.filter(planet => planet.descriptionVisible);
+      const amountOfVisiblePlanets = visiblePlanets.length;
+      if (amountOfVisiblePlanets > 1) {
+        this.handleHideAll();
+        item.descriptionVisible = true;
+      } else {
+        item.descriptionVisible = !item.descriptionVisible;
+      }
+    } else {
+      this.handleHideAll()
+      item.descriptionVisible = !item.descriptionVisible;
+    }
   }
+
 }
