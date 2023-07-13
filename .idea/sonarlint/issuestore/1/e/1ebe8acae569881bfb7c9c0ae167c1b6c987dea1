@@ -1,0 +1,7 @@
+
+stypescript:S43251"RThis assertion is unnecessary since it does not change the type of the expression.(ë‰ïõûÿÿÿÿ
+Xtypescript:S1854="<Remove this useless assignment to variable "halfOfElements".(ï«ž›
+stypescript:S4043{"WMove this array "sort" operation to a separate statement or replace it with "toSorted".(ÄÌ–Ÿ
+qtypescript:S3776é"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(ƒ‹Šî
+qtypescript:S3776™"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(Ð†òï
+qtypescript:S3776Ò"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(”¡©
