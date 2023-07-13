@@ -583,4 +583,189 @@ each element of array A is an integer within the range [−2,147,483,648..2,147,
     }
     return 0;
   }
+
+  /*
+  *
+  * We draw N discs on a plane. The discs are numbered from 0 to N − 1.
+  * An array A of N non-negative integers, specifying the radiuses of the discs,
+  * is given. The J-th disc is drawn with its center at (J, 0) and radius A[J].
+
+We say that the J-th disc and K-th disc intersect if J ≠ K and the J-th and K-th discs
+* have at least one common point (assuming that the discs contain their borders).
+
+The figure below shows discs drawn for N = 6 and A as follows:
+
+  A[0] = 1
+  A[1] = 5
+  A[2] = 2
+  A[3] = 1
+  A[4] = 4
+  A[5] = 0
+  *
+  * There are eleven (unordered) pairs of discs that intersect, namely:
+
+discs 1 and 4 intersect, and both intersect with all the other discs;
+disc 2 also intersects with discs 0 and 3.
+Write a function:
+
+function solution(A: number[]): number;
+
+that, given an array A describing N discs as explained above, returns the number
+* of (unordered) pairs of intersecting discs. The function should return −1 if the
+* number of intersecting pairs exceeds 10,000,000.
+
+Given array A shown above, the function should return 11, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [0..2,147,483,647].
+* There are eleven (unordered) pairs of discs that intersect, namely:
+
+discs 1 and 4 intersect, and both intersect with all the other discs;
+disc 2 also intersects with discs 0 and 3.
+Write a function:
+
+function solution(A: number[]): number;
+
+that, given an array A describing N discs as explained above, returns the number
+* of (unordered) pairs of intersecting discs. The function should return −1 if the number of intersecting pairs exceeds 10,000,000.
+
+Given array A shown above, the function should return 11, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [0..2,147,483,647].
+* There are eleven (unordered) pairs of discs that intersect, namely:
+
+discs 1 and 4 intersect, and both intersect with all the other discs;
+disc 2 also intersects with discs 0 and 3.
+Write a function:
+
+function solution(A: number[]): number;
+
+that, given an array A describing N discs as explained above, returns the number of
+* (unordered) pairs of intersecting discs. The function should return −1 if the number
+* of intersecting pairs exceeds 10,000,000.
+
+Given array A shown above, the function should return 11, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [0..2,147,483,647].
+  *
+  * */
+  solutionUnorderedPairsIntersectingDiscs(A: number[]): number {
+    // Implement your solution here
+    let numberOfIntersection = 0;
+    for (let j = 0; j < A.length; j++) {
+      for (let k = j + 1; k < A.length; k++) {
+        if (j !== k) {
+          const centerJ = j;
+          const minJ = centerJ - A[j];
+          const maxJ = centerJ + A[j];
+          const centerK = k;
+          const minK = centerK - A[k];
+          const maxK = centerK + A[k];
+          const jIsMaxThanK = maxJ - centerJ > maxK - centerK;
+          const jCenterIsMoreThanKCenter = centerJ > centerK;
+          const arrayJ = [minJ, centerJ, maxJ];
+          const arrayK = [minK, centerK, maxK];
+          if (jCenterIsMoreThanKCenter ? minJ > maxK : minK > maxJ) {
+            // too far
+          } else {
+            const hasAtLeastOneMatch = arrayJ.some((j) =>
+              arrayK.some((k) => k === j),
+            );
+            if (hasAtLeastOneMatch) {
+              numberOfIntersection++;
+              break;
+            }
+            if (numberOfIntersection > 10000000) {
+              return -1;
+            }
+            const createRangeArray = (min: number, max: number) => {
+              const len = max - min + 1;
+              const arr = new Array(len);
+              for (let i = 0; i < len; i++) {
+                arr[i] = min + i;
+              }
+              return arr;
+            };
+            const arrayValuesJ = createRangeArray(minJ, maxJ);
+            const arrayValuesK = createRangeArray(minK, maxK);
+            if (jIsMaxThanK) {
+              if (minJ < minK && maxJ > maxK) {
+                // J contains K
+              } else {
+                const haveAtLeastOne = arrayValuesJ.some((value) =>
+                  arrayValuesK.includes(value),
+                );
+                if (haveAtLeastOne) {
+                  numberOfIntersection++;
+                  if (numberOfIntersection > 10000000) {
+                    return -1;
+                  }
+                }
+              }
+            } else {
+              if (minK < minJ && maxK > maxJ) {
+                // K contains J
+              } else {
+                const haveAtLeastOne = arrayValuesK.some((value) =>
+                  arrayValuesJ.includes(value),
+                );
+                if (haveAtLeastOne) {
+                  numberOfIntersection++;
+                  if (numberOfIntersection > 10000000) {
+                    return -1;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return numberOfIntersection;
+  }
+
+  /*
+  * 
+  * Write a function
+
+class Solution { public int solution(int[] A); }
+
+that, given an array A consisting of N integers, returns the number of distinct values in array A.
+
+For example, given array A consisting of six elements such that:
+
+ A[0] = 2    A[1] = 1    A[2] = 1
+ A[3] = 2    A[4] = 3    A[5] = 1
+the function should return 3, because there are 3 distinct values appearing in array A, namely 1, 2 and 3.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [−1,000,000..1,000,000].Write a function
+
+class Solution { public int solution(int[] A); }
+
+that, given an array A consisting of N integers, returns the number of distinct values in array A.
+
+For example, given array A consisting of six elements such that:
+
+ A[0] = 2    A[1] = 1    A[2] = 1
+ A[3] = 2    A[4] = 3    A[5] = 1
+the function should return 3, because there are 3 distinct values appearing in array A, namely 1, 2 and 3.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..100,000];
+each element of array A is an integer within the range [−1,000,000..1,000,000].
+  * */
+
+  EXAMSolutionTaskOne() {}
 }
