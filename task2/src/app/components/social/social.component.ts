@@ -8,6 +8,7 @@ import { Friend } from '../../interfaces/friend.type';
   selector: 'app-social',
   template: ` <div class="app-wrapper">
     <h1>My Friends</h1>
+    <h3 *ngIf="errorMessageToShow.length > 0">{{errorMessageToShow}}</h3>
     <ul>
       <li *ngFor="let friend of friends" [attr.data-test-id]="'li-'+friend.name.toLowerCase()">
         <span>{{friend.name}}</span>
@@ -19,6 +20,11 @@ import { Friend } from '../../interfaces/friend.type';
   </div> `,
 })
 export class SocialComponent implements OnInit {
+
+  errorMessageToShow = '';
+
+  messageGetFriendFail = 'Fetching friends has failed.';
+  messageLikeFriendFail = 'Liking friend has failed.'
 
   friends: Friend[] = [];
   constructor(private socialService: SocialService) { }
@@ -42,6 +48,9 @@ export class SocialComponent implements OnInit {
   }
   
   likeFriend(nameFriend: string){
-    
+
+    this.errorMessageToShow = this.messageLikeFriendFail;
+      // si la peticion es valida actulizar el boton y desabilitar el boton
+      // caso contrario
   }
 }
