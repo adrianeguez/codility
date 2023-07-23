@@ -736,6 +736,9 @@ each element of array A is an integer within the range [0..2,147,483,647].
    *  * */
 
   EXAMSolutionTaskOne(A: number): number {
+    if (true) {
+      console.log('as');
+    }
     return A >= 0 ? 1 : 0;
   }
   /*
@@ -749,5 +752,61 @@ each element of array A is an integer within the range [0..2,147,483,647].
 
   EXAMSolutionTaskThree(A: number): number {
     return A >= 0 ? 1 : 0;
+  }
+
+  turingAssesment(S: string): string {
+    let result = '';
+    const letters = []; //array for letters
+    const special = []; //array for other charactors
+
+    for (let i = 0; i < S.length; i++) {
+      //loops througth str
+      if (S[i].match(/[a-zA-Z]/)) {
+        //filter letters
+        letters.push(S[i]);
+      } else {
+        special[i] = S[i]; //adds special charactors in relative spot
+      }
+    }
+
+    for (let i = 0; i < S.length; i++) {
+      if (special[i] == undefined) {
+        special[i] = letters[letters.length - 1];
+        letters.pop();
+      } //rverses position of letters
+    }
+    const fin = special.join(''); //joins the array to a string
+    result = fin; //returns string
+    return result;
+  }
+
+  solutionTuring2(arr: number[]): any[] {// Sort the scores in descending order to get the highest score first
+    const sortedScores = arr.slice().sort((a, b) => b - a);
+
+    // Create an array to store the ranks and medals
+    const result = [];
+
+    // Assign ranks and medals to each individual based on their position in the sortedScores array
+    for (let i = 0; i < arr.length; i++) {
+      const score = arr[i];
+      const rank = sortedScores.indexOf(score) + 1;
+
+      switch (rank) {
+        case 1:
+          result.push("Golden trophy");
+          break;
+        case 2:
+          result.push("Silver Platter");
+          break;
+        case 3:
+          result.push("Bronze medal");
+          break;
+        default:
+          result.push(rank.toString());
+          break;
+      }
+    }
+
+    return result;
   }
 }
